@@ -1,0 +1,357 @@
+CREATE TABLE Players
+(
+	PlayerID int  PRIMARY KEY,
+	Username nvarchar(255)  UNIQUE,
+	PlayerLevel int ,
+DateLoggedFirst smalldatetime,
+CharCode int,
+KingdomCode int
+)
+GO
+
+CREATE TABLE Kingdom
+(
+	KingdomID int  PRIMARY KEY,
+	KingdomName nvarchar(255) 
+)
+GO
+
+CREATE TABLE Characters
+(
+	CharID int  PRIMARY KEY,
+	CharName nvarchar(255) ,
+	CharLevel int ,
+	CharHP int,
+	ArtifactCode int,
+ElementCode int,
+WeaponID int
+)
+GO
+
+ALTER TABLE Players
+ADD CONSTRAINT FK_CharCode FOREIGN KEY (CharCode)
+    REFERENCES Characters(CharID)
+
+ALTER TABLE Players 
+ADD CONSTRAINT FK_KC FOREIGN KEY(KingdomCode) REFERENCES Kingdom(KingdomID)
+
+CREATE TABLE Artifacts
+(
+	ArtifactID int  PRIMARY KEY,
+	ArtifactLevel int ,
+	HP_extra int ,
+	ArtifactName nvarchar(250),
+	ElementCode int
+)
+GO
+
+ALTER TABLE Characters
+ADD CONSTRAINT FK_AC FOREIGN KEY (ArtifactCode) REFERENCES ARTIFACTS(ArtifactID)
+
+CREATE TABLE Elements
+(
+	ElementCode int  PRIMARY KEY,
+	ElementName nvarchar(250) 
+	)
+GO
+
+ALTER TABLE ARTIFACTS
+ADD CONSTRAINT FK_EC FOREIGN KEY (ElementCode) REFERENCES Elements(ElementCode);
+
+ALTER TABLE Characters
+ADD CONSTRAINT FK_EC1 FOREIGN KEY(ElementCode) REFERENCES Elements(ElementCode);
+
+CREATE TABLE Enemy
+(
+	EnemyID int  PRIMARY KEY,
+	KingdomID int  FOREIGN KEY REFERENCES Kingdom(KingdomID),
+	EnemyName nvarchar(250)  ,
+	EnemyLevel int ,
+	HP int ,
+	ElementID int  FOREIGN KEY REFERENCES Elements(ElementCode)
+)
+GO
+
+
+	INSERT INTO Kingdom (KingdomID, KingdomName )
+VALUES 
+	(1,'Mondstadt'),
+	(2,'Liyue'),
+	(3,'Inazuma'),
+ (4, 'Sumeru'),
+(5,  'Fontaine'), 
+(6, 'Natlan'),
+(7, 'Snezhnaya')
+
+
+
+	INSERT INTO Elements (ElementCode, ElementName )
+VALUES 
+	(1,'Electro'),
+	(2,'Anemo'),
+	(3,'Geo'),
+(4, 'Pyro'),
+(5,  'Hydro'), 
+(6, 'Dendro'), 
+(7, 'Cryo')
+
+INSERT INTO ARTIFACTS(ArtifactID, ArtifactName, ArtifactLevel, ElementCode)
+VALUES 
+	(3, 'Leather Pouch', 12, 3 ),
+	(2, 'Stardust', 13, 2),
+	(1, 'Book of Shadows', 17, 1),
+(4, 'Gold-Tier Weapon Ascension Material', 28, 4),
+(5, 'The Correct Elemental Goblet', 23, 6),
+(6, 'Physical DMG Goblet', 34, 7),
+(7, 'Elemental Mastery Artifact', 12, 3),
+(8,  'Gemstone', 18, 5),
+(9,  'Three Ore Chunks', 10, 4),
+(10, 'The Perfect Artifact',25, 7)
+
+UPDATE Artifacts
+SET HP_extra=ArtifactLevel*100
+
+CREATE TABLE WeaponTypes
+(
+	WeaponID int PRIMARY KEY,
+	WeaponType nvarchar(250) 
+)
+GO
+
+CREATE TABLE Weapons
+(
+	WeaponID int  PRIMARY KEY,
+	WeaponTypeID int,
+	CONSTRAINT FK_WT FOREIGN KEY (WeaponTypeID) REFERENCES WeaponTypes(WeaponID),
+	WeaponName nvarchar(250) ,
+	WeaponDMG int 
+)
+GO
+
+INSERT INTO WeaponTypes
+VALUES (1, 'Bow'),
+ (2, 'Polearm'),
+ (3, 'Sword'),
+ (4, 'Catalyst'),
+ (5, 'Claymore')
+
+INSERT INTO Weapons
+VALUES (2, 1,'Hunters Path', 541),
+(3, 1,'Aqua Simulacra',542),
+(4, 1,'Amos Bow', 608),
+(5, 2,'Elegy for the End',608),
+(6, 2,'Polar Star',608),
+(7, 2, 'Skyward Harp',674),
+(8, 3, 'Thundering Pulse',608),
+(9,3, 'Alley Hunter',565),
+(10, 3, 'Blackcliff Warbow',565),
+(11, 4,'Compound Bow',454),
+(12, 4,'Favonius Warbow',454),
+(13, 4,'Hamayumi',454),
+(14, 5, 'Mitternachts Waltz',510),
+(15, 5, 'Mouuns Moon',565),
+(16, 5, 'Predator',510),
+(17, 1, 'Prototype Crescent',510),
+(18, 2, 'Royal Bow',510),
+(19, 3, 'Rust',510),
+(20, 4, 'Sacrificial Bow',565),
+(21, 5, 'The Stringless',510),
+(22, 1, 'The Viridescent Hunt',510),
+(23, 2, 'Windblume Ode',510),
+(24, 3, 'Kings Squire',454),
+(1, 4, 'End of the line',510)
+
+
+ALTER TABLE Characters
+ADD CONSTRAINT FK_WID FOREIGN KEY (WeaponID) REFERENCES Weapons(WeaponID)
+
+INSERT INTO Characters (CharID, CharName)
+VALUES 
+	(1,'Keqing'),
+	(2,'Xiao'),
+	(3,'Arataki Itto'),
+(4, 'Albedo') ,
+(5, 'Aloy'),
+(6, 'Amber'),
+(7, 'Ayaka'),
+(8, 'Ayato'),
+(9, 'Barbara'),
+(10, 'Beidou'),
+( 11, 'Bennett'),
+(12, 'Candace'),
+(13, 'Childe'),
+(14, 'Chongyun'),
+(15, 'Collei'),
+(16, 'Cyno'),
+(17, 'Diluc'),
+(18, 'Diona'),
+(19, 'Dori'),
+(20, 'Eula'),
+(21, 'Faruzan'),
+(22, 'Fischl'),
+(23, 'Ganyu'),
+(24, 'Gorou'),
+(25, 'Heizou'),
+(26, 'Hu Tao'),
+(27, 'Jean'),
+(28, 'Kaeya'),
+(29, 'Kazuha'),
+(30, 'Klee'),
+(31, 'Kokomi'),
+(32, 'Kuki Shinobu'),
+(33, 'Layla'),
+(34, 'Lisa'),
+(35, 'Mona'),
+(36, 'Nahida'),
+(37, 'Nilou'),
+(38, 'Ningguang'),
+(39, 'Noelle'),
+(40, 'Qiqi'),
+(41, 'Raiden'),
+(42, 'Razor'),
+(43, 'Rosaria'),
+(44, 'Sara'),
+(45, 'Sayu'),
+(46, 'Shenhe'),
+(47, 'Sucrose'),
+(48, 'Thoma'),
+(49, 'Tighnari'),
+(50, 'Venti'),
+(51, 'Wanderer'),
+(52, 'Xiangling'),
+(53, 'Xingqiu'),
+(54, 'Xinyan'),
+(55, 'Yae Miko'),
+(56, 'Yanfei'),
+(57, 'Yelan'),
+(58, 'Yoimiya'),
+(59, 'Yun Jin'),
+(60, 'Zhongli')
+
+
+UPDATE Characters
+SET ArtifactCode=ABS(CHECKSUM(NEWID()) %10)+1
+
+UPDATE Characters
+SET ElementCode=ABS(CHECKSUM(NEWID()) %7)+1
+
+UPDATE Characters
+SET WeaponID=ABS(CHECKSUM(NEWID()) %24)+1
+
+UPDATE Characters
+SET CharLevel=ABS(CHECKSUM(NEWID()) %50)+1
+
+MERGE INTO Characters
+   USING Artifacts
+      ON Characters.ArtifactCode = Artifacts.ArtifactID
+WHEN MATCHED THEN
+   UPDATE 
+      SET CharHP = CharLevel*100 + Artifacts.HP_extra;
+	  
+	INSERT INTO Players (PlayerID, Username, CharCode, KingdomCode)
+VALUES 
+	(1,'ilovemilfs', 23, 1),
+	(2,'klementinka', 12, 2),
+	(3,'aratakisimp', 3, 3),
+	(4, 'jovanijorjo', 50, 4),
+(5, 'kakvopraish', 19, 5),
+(6, 'lmaoobichammaiki', 20, 6),
+(7, 'kakvosesluchva', 59, 7)
+
+UPDATE Players
+ SET DateLoggedFirst = DATEADD(DAY, ABS(CHECKSUM(NEWID()) % 3650), '2000-01-01')
+
+UPDATE Players
+SET PlayerLevel=ABS(CHECKSUM(NEWID()) %100)+1
+
+ALTER TABLE Enemy
+ADD CanBeKilledBy int
+
+ALTER TABLE Enemy
+ADD CONSTRAINT FK_WE FOREIGN KEY(CanBeKilledBy) REFERENCES WeaponTypes(WeaponID)
+
+	INSERT INTO Enemy (EnemyID, KingdomID, EnemyName, EnemyLevel, HP, ElementID)
+VALUES 
+	(1, 1, 'Scaramouche', 31, 0, 3),
+	(2, 2, 'Kamisato Ayato', 27, 0, 2),
+	(3, 3, 'Raiden Shogun', 25, 0, 1),
+ (4, 1,'Crusher', 10, 0, 7),
+(5,2, 'Gravedigger', 20, 0, 6),
+(6,7 ,'Handyman', 30, 0, 7),
+(7,6, 'Marksman', 50, 0, 5),
+(8, 5,'Potioneers Cryo', 12, 0, 7),
+(9, 4,'Potioneers Electro', 15, 0, 1),
+(10, 3,'Potioneers Hydro', 14, 0, 5),
+(11,5, 'Potioneers Pyro', 11, 0, 4),
+(12,6 ,'Pugilist', 3, 0, 6),
+(13, 7,'Scout', 43, 0,  5),
+(14,4, 'Seaman', 23, 0, 3)
+
+
+UPDATE Enemy
+SET HP=EnemyLevel*100
+
+
+
+UPDATE Enemy
+SET CanBeKilledBy=ABS(CHECKSUM(NEWID()) %5)+1
+
+ALTER TABLE Players
+ADD Birthday smalldatetime
+
+UPDATE Players
+ SET birthday = DATEADD(DAY, ABS(CHECKSUM(NEWID()) % 36500), '1922-01-01')
+
+alter table characters
+add charbday smalldatetime
+
+update characters
+set CharBday = DATEADD(DAY, ABS(CHECKSUM(NEWID()) % 36500), '1922-01-01')
+
+
+alter table players
+add pass nvarchar(250)
+
+
+update players
+set pass = NEWID()
+
+alter table players
+add xp int
+
+UPDATE Players
+SET xp=ABS(CHECKSUM(NEWID()) %10000)+1
+
+alter table players
+add LastLogged smalldatetime
+
+alter table players
+add Streak int
+
+update players
+set streak=0
+
+alter table players
+add Coins int
+
+update players
+set coins=0
+
+alter table players
+add lastdateclaimed smalldatetime
+
+update player 
+set lastdateclaimed='2021-9-2'
+
+CREATE PROCEDURE SelectAll
+AS
+
+SELECT  dbo.Characters.CharName, dbo.Characters.CharLevel, dbo.Characters.CharHP, dbo.Artifacts.ArtifactName, dbo.Elements.ElementName, dbo.WeaponTypes.WeaponType, DATENAME(MONTH, DATEADD(MONTH, 0, dbo.Characters.charbday)) as 'BirthMonth'
+FROM dbo.Characters
+JOIN dbo.Artifacts on dbo.Artifacts.ArtifactID=dbo.Characters.ArtifactCode
+JOIN dbo.Weapons on dbo.Characters.WeaponID=dbo.Weapons.WeaponID
+JOIN dbo.WeaponTypes on dbo.Weapons.WeaponTypeID=dbo.WeaponTypes.WeaponID
+JOIN dbo.Elements on dbo.Elements.ElementCode=dbo.Characters.ElementCode
+
+GO;
+
