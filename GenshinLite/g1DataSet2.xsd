@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="g1DataSet2" targetNamespace="http://tempuri.org/g1DataSet2.xsd" xmlns:mstns="http://tempuri.org/g1DataSet2.xsd" xmlns="http://tempuri.org/g1DataSet2.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="g1ConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="g1ConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.GenshinLite.Properties.Settings.GlobalReference.Default.g1ConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="WeaponsTableAdapter" GeneratorDataComponentClassName="WeaponsTableAdapter" Name="Weapons" UserDataComponentName="WeaponsTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="g1ConnectionString (Settings)" DbObjectName="g1.dbo.Weapons" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT WeaponTypeID, WeaponName, WeaponDMG FROM dbo.Weapons</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="WeaponTypeID" DataSetColumn="WeaponTypeID" />
+              <Mapping SourceColumn="WeaponName" DataSetColumn="WeaponName" />
+              <Mapping SourceColumn="WeaponDMG" DataSetColumn="WeaponDMG" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="g1DataSet2" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="g1DataSet2" msprop:Generator_UserDSName="g1DataSet2">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="Weapons" msprop:Generator_TableClassName="WeaponsDataTable" msprop:Generator_TableVarName="tableWeapons" msprop:Generator_TablePropName="Weapons" msprop:Generator_RowDeletingName="WeaponsRowDeleting" msprop:Generator_RowChangingName="WeaponsRowChanging" msprop:Generator_RowEvHandlerName="WeaponsRowChangeEventHandler" msprop:Generator_RowDeletedName="WeaponsRowDeleted" msprop:Generator_UserTableName="Weapons" msprop:Generator_RowChangedName="WeaponsRowChanged" msprop:Generator_RowEvArgName="WeaponsRowChangeEvent" msprop:Generator_RowClassName="WeaponsRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="WeaponTypeID" msprop:Generator_ColumnVarNameInTable="columnWeaponTypeID" msprop:Generator_ColumnPropNameInRow="WeaponTypeID" msprop:Generator_ColumnPropNameInTable="WeaponTypeIDColumn" msprop:Generator_UserColumnName="WeaponTypeID" type="xs:int" minOccurs="0" />
+              <xs:element name="WeaponName" msprop:Generator_ColumnVarNameInTable="columnWeaponName" msprop:Generator_ColumnPropNameInRow="WeaponName" msprop:Generator_ColumnPropNameInTable="WeaponNameColumn" msprop:Generator_UserColumnName="WeaponName" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="250" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="WeaponDMG" msprop:Generator_ColumnVarNameInTable="columnWeaponDMG" msprop:Generator_ColumnPropNameInRow="WeaponDMG" msprop:Generator_ColumnPropNameInTable="WeaponDMGColumn" msprop:Generator_UserColumnName="WeaponDMG" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
